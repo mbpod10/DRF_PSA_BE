@@ -1,25 +1,17 @@
 # PSA Backend
 
 ### Endpoints
-http://127.0.0.1:8000/api/users/
-http://127.0.0.1:8000/api/users/login/
-http://127.0.0.1:8000/api/users/register/
-http://127.0.0.1:8000/api/users/change_password/
-http://127.0.0.1:8000/appointments/
-http://127.0.0.1:8000/appointments/book_app/
-http://127.0.0.1:8000/trainers/
-http://127.0.0.1:8000/clients/
 
-| Endpoint | Description | Diperlukan |
-| --- | --- | --- | 
-| http://127.0.0.1:8000/api/users/ | String | Diperlukan |
-| http://127.0.0.1:8000/api/users/login/ | String (email address format) | Opsional |
-| http://127.0.0.1:8000/api/users/register/ | String | Diperlukan |
-| http://127.0.0.1:8000/api/users/change_password/ | String | Diperlukan | 
-| http://127.0.0.1:8000/appointments/ | String | Opsional | 
-| http://127.0.0.1:8000/appointments/book_app/ | String | -|
-| http://127.0.0.1:8000/trainers/ | String | Opsional | 
-| http://127.0.0.1:8000/clients/ | String | Opsional | 
+| Endpoint                                         | Description                   | Body                                                  |
+| ------------------------------------------------ | ----------------------------- | ----------------------------------------------------- |
+| http://127.0.0.1:8000/api/users/                 | String                        | CRUD                                                  |
+| http://127.0.0.1:8000/api/users/login/           | String (email address format) | username, password                                    |
+| http://127.0.0.1:8000/api/users/register/        | String                        | username, password                                    |
+| http://127.0.0.1:8000/api/users/change_password/ | String                        | username, password                                    |
+| http://127.0.0.1:8000/appointments/              | String                        | CRUD                                                  |
+| http://127.0.0.1:8000/appointments/book_app/     | String                        | day, start_time, end_time, trainer, client, time=null |
+| http://127.0.0.1:8000/trainers/                  | String                        | CRUD                                                  |
+| http://127.0.0.1:8000/clients/                   | String                        | CRUD                                                  |
 
 
 
