@@ -2,16 +2,16 @@
 
 ### Endpoints
 
-| Endpoint                                         | Description                   | Body                                                  |
-| ------------------------------------------------ | ----------------------------- | ----------------------------------------------------- |
-| http://127.0.0.1:8000/api/users/                 | String                        | CRUD                                                  |
-| http://127.0.0.1:8000/api/users/login/           | String (email address format) | username, password                                    |
-| http://127.0.0.1:8000/api/users/register/        | String                        | username, password                                    |
-| http://127.0.0.1:8000/api/users/change_password/ | String                        | username, password                                    |
-| http://127.0.0.1:8000/appointments/              | String                        | CRUD                                                  |
-| http://127.0.0.1:8000/appointments/book_app/     | String                        | day, start_time, end_time, trainer, client, time=null |
-| http://127.0.0.1:8000/trainers/                  | String                        | CRUD                                                  |
-| http://127.0.0.1:8000/clients/                   | String                        | CRUD                                                  |
+| Endpoint                                         | Description              | Body                                                  |
+| ------------------------------------------------ | ------------------------ | ----------------------------------------------------- |
+| http://127.0.0.1:8000/api/users/                 | -                        | CRUD                                                  |
+| http://127.0.0.1:8000/api/users/login/           | Login w/ token           | username, password                                    |
+| http://127.0.0.1:8000/api/users/register/        | Create New User w/ Token | username, password                                    |
+| http://127.0.0.1:8000/api/users/change_password/ | Change existing password | username, password                                    |
+| http://127.0.0.1:8000/appointments/              | -                        | CRUD                                                  |
+| http://127.0.0.1:8000/appointments/book_app/     | Schedule New Appt        | day, start_time, end_time, trainer, client, time=null |
+| http://127.0.0.1:8000/trainers/                  | -                        | CRUD                                                  |
+| http://127.0.0.1:8000/clients/                   | -                        | CRUD                                                  |
 
 
 
