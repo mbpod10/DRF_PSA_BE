@@ -10,6 +10,7 @@ class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
         fields = ('id', 'user', 'full_name')
+        # fields = ('full_name',)
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -17,6 +18,7 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
+        # fields = ('full_name',)
         fields = ('id', 'user', 'full_name')
 
 
@@ -24,7 +26,8 @@ class AppointmentDaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AppointmentDay
-        fields = ('id', 'day', 'no_of_appointments')
+        # fields = ('day', 'no_of_appointments')
+        fields = ('id', 'day', 'no_of_appointments', 'appointments')
 
 
 class AppointmentSerializer(serializers.ModelSerializer):

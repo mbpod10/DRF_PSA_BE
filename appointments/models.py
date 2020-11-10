@@ -34,13 +34,28 @@ class AppointmentDay(models.Model):
         appointments = Appointment.objects.filter(day=self)
         return len(appointments)
 
-    # def appointments(self):
-    #     appointments = Appointment.objects.filter(day=self)
-    #     for appointment in appointments:
-    #         return appointment
+    def appointments(self):
+        appointments = Appointment.objects.filter(day=self)
+
+        print(len(appointments))
+
+        return_days = []
+
+        for acc in appointments:
+
+            return_days.append({
+                'id': acc.id,
+                'start_time': str(acc.start_time),
+                'end_time': str(acc.end_time),
+                'client': acc.client.full_name,
+                'trainer': acc.trainer.full_name,
+                'time': acc.time
+            })
+
+        return return_days
 
     def __str__(self):
-        return str(self.day)
+        return str(self.day) + " ( id-" + str(self.id) + " ) "
 
 
 class Appointment(models.Model):
