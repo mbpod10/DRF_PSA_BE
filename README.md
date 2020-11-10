@@ -11,7 +11,7 @@ http://127.0.0.1:8000/trainers/
 http://127.0.0.1:8000/clients/
 
 | Endpoint | Description | Diperlukan |
-| --- | --- | --- | --- |
+| --- | --- | --- | 
 | http://127.0.0.1:8000/api/users/ | String | Diperlukan |
 | http://127.0.0.1:8000/api/users/login/ | String (email address format) | Opsional |
 | http://127.0.0.1:8000/api/users/register/ | String | Diperlukan |
