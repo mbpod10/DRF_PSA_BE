@@ -17,7 +17,7 @@
 
 http://127.0.0.1:8000/appointments/book_app/ 
 
-Body: 
+Body where `trainer_id` = id of `Trainer` model and `client_id` = id of `Client` model
 ```json
 {
     "trainer_id": 1,
