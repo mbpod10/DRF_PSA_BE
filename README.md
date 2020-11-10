@@ -10,13 +10,16 @@ http://127.0.0.1:8000/appointments/book_app/
 http://127.0.0.1:8000/trainers/
 http://127.0.0.1:8000/clients/
 
-| Nama Field | Tipe | Diperlukan | Deskripsi |
+| Endpoint | Description | Diperlukan |
 | --- | --- | --- | --- |
-| from_name | String | Diperlukan | Nama Pengirim |
-| from_email | String (email address format) | Opsional | Email Penerima, jika kosong maka menggunakan email user yang terdaftar |
-| from_address | String | Diperlukan | Alamat Pengirim |
-| from_phone | String | Diperlukan | Telefon Pengirim |
-| from_zip_code | String | Opsional | Kode Pos Pengirim |
+| http://127.0.0.1:8000/api/users/ | String | Diperlukan |
+| http://127.0.0.1:8000/api/users/login/ | String (email address format) | Opsional |
+| http://127.0.0.1:8000/api/users/register/ | String | Diperlukan |
+| http://127.0.0.1:8000/api/users/change_password/ | String | Diperlukan | 
+| http://127.0.0.1:8000/appointments/ | String | Opsional | 
+| http://127.0.0.1:8000/appointments/book_app/ | String | -|
+| http://127.0.0.1:8000/trainers/ | String | Opsional | 
+| http://127.0.0.1:8000/clients/ | String | Opsional | 
 
 
 
