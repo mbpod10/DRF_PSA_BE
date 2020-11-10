@@ -37,8 +37,6 @@ class AppointmentDay(models.Model):
     def appointments(self):
         appointments = Appointment.objects.filter(day=self)
 
-        print(len(appointments))
-
         return_days = []
 
         for acc in appointments:
