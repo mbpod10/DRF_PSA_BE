@@ -24,13 +24,23 @@ class Client(models.Model):
         return self.full_name
 
 
+class AppointmentDay(models.Model):
+    day = models.DateField(
+        u'Day Of The Event', help_text=u'Day Of The Event')
+
+    def __str__(self):
+        return str(self.day)
+
+
 class Appointment(models.Model):
     trainer = models.ForeignKey(
         Trainer, on_delete=models.CASCADE, related_name='trainer')
     client = models.ForeignKey(
         Client, on_delete=models.CASCADE, related_name='client')
-    day = models.DateField(
-        u'Day Of The Event', help_text=u'Day Of The Event')
+    day = models.ForeignKey(
+        AppointmentDay, related_name='app_day', on_delete=models.CASCADE)
+    # day = models.DateField(
+    #     u'Day Of The Event', help_text=u'Day Of The Event')
     start_time = models.TimeField(
         u'Starting Time', help_text=u'Starting Time')
     end_time = models.TimeField(
