@@ -12,6 +12,7 @@
 | http://127.0.0.1:8000/appointments/book_app/     | Schedule New Appt        | day, start_time, end_time, trainer, client, time=null |
 | http://127.0.0.1:8000/trainers/                  | -                        | CRUD                                                  |
 | http://127.0.0.1:8000/clients/                   | -                        | CRUD                                                  |
+| http://127.0.0.1:8000/days/                      | -                        | CRUD                                                  |
 
 ### Book Appointment
 

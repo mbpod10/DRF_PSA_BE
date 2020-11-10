@@ -1,6 +1,8 @@
+# from .serializers import AppointmentSerializer
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta, datetime
+
 
 from django.utils.timezone import now
 # Create your models here.
@@ -27,6 +29,15 @@ class Client(models.Model):
 class AppointmentDay(models.Model):
     day = models.DateField(
         u'Day Of The Event', help_text=u'Day Of The Event')
+
+    def no_of_appointments(self):
+        appointments = Appointment.objects.filter(day=self)
+        return len(appointments)
+
+    # def appointments(self):
+    #     appointments = Appointment.objects.filter(day=self)
+    #     for appointment in appointments:
+    #         return appointment
 
     def __str__(self):
         return str(self.day)
@@ -69,3 +80,12 @@ class Appointment(models.Model):
             return str(self.client.full_name).split(" ")[1] + " " + str(self.day) + " (" + str(self.start_time) + ") " + str(self.trainer.full_name).split(" ")[1] + " CLOSED "
         else:
             return str(self.client.full_name).split(" ")[1] + " " + str(self.day) + " (" + str(self.start_time) + ") " + str(self.trainer.full_name).split(" ")[1] + " OPEN"
+
+
+# class DayListModel(models.Model):
+#     trainer = models.CharField(max_length=256)
+#     client = models.CharField(max_length=256)
+#     start_time = models.CharField(max_length=256)
+#     end_time = models.CharField(max_length=256)
+#     day = models.CharField(max_length=256)
+#     time = models.PositiveIntegerField()

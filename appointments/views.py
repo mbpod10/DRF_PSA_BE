@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
-from .serializers import AppointmentSerializer, TrainerSerializer, ClientSerializer
+# , DayListSerializer
+from .serializers import (AppointmentSerializer, TrainerSerializer,
+                          ClientSerializer, AppointmentDaySerializer)
 from .models import Appointment, Trainer, Client, AppointmentDay
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -73,9 +75,6 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
         except AppointmentDay.DoesNotExist:
             appointment_day = AppointmentDay.objects.create(day=day)
-            # obj.save()
-
-        # print(day, appointment_day)
 
         trainer_instance = Trainer.objects.get(id=trainer)
         client_instance = Client.objects.get(id=client)
@@ -96,5 +95,52 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             trainer=trainer_instance, client=client_instance, day=appointment_day, start_time=start_time, end_time=end_time, time=time)
         serializer = AppointmentSerializer(appointment, many=False)
 
-        message = {'msg': "Appt Booked!", 'appointment': serializer.data}
+        # message = {'msg': "Appt Booked!", 'appointment': serializer.data}
+        message = {'msg': serializer.data}
+        return Response(message, status=status.HTTP_200_OK)
+
+
+class AppointmentDayViewSet(viewsets.ModelViewSet):
+    queryset = AppointmentDay.objects.all()
+    serializer_class = AppointmentDaySerializer
+
+    @action(detail=False, methods=['GET'])
+    def day_list(self, request):
+
+        days = AppointmentDay.objects.all()
+        print(days)
+
+        return_days = {}
+
+        for day in days:
+            try:
+                print(day)
+                app = Appointment.objects.filter(day=day)
+                return_days[day] = {
+                    'id': app.id,
+                    'day': str(app.day.day),
+                    'start_time': str(app.start_time),
+                    'end_time': str(app.end_time),
+                    'client': app.client.full_name,
+                    'trainer': app.trainer.full_name,
+                    'time': app.time
+                }
+            except:
+                return_days[day] = {
+                    'id': day.id,
+                    'day': '',
+                    'start_time': '',
+                    'end_time': '',
+                    'client': '',
+                    'trainer': '',
+                    'time': ''
+                }
+
+        print("return days", return_days)
+
+        # serializer = AppointmentDaySerializer(return_days, many=True)
+        # serializer = DayListSerializer(return_days, many=True)
+
+        # message = {'msg': serializer.data}
+        message = {'msg': 'day_list'}
         return Response(message, status=status.HTTP_200_OK)
