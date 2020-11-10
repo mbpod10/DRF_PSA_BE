@@ -1,3 +1,25 @@
+# PSA Backend
+
+### Endpoints
+http://127.0.0.1:8000/api/users/
+http://127.0.0.1:8000/api/users/login/
+http://127.0.0.1:8000/api/users/register/
+http://127.0.0.1:8000/api/users/change_password/
+http://127.0.0.1:8000/appointments/
+http://127.0.0.1:8000/appointments/book_app/
+http://127.0.0.1:8000/trainers/
+http://127.0.0.1:8000/clients/
+
+| Nama Field | Tipe | Diperlukan | Deskripsi |
+| --- | --- | --- | --- |
+| from_name | String | Diperlukan | Nama Pengirim |
+| from_email | String (email address format) | Opsional | Email Penerima, jika kosong maka menggunakan email user yang terdaftar |
+| from_address | String | Diperlukan | Alamat Pengirim |
+| from_phone | String | Diperlukan | Telefon Pengirim |
+| from_zip_code | String | Opsional | Kode Pos Pengirim |
+
+
+
 # Django REST Framework Custom Users / Login / Auth
 
 ```
