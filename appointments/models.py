@@ -1,10 +1,12 @@
 # from .serializers import AppointmentSerializer
+from django.utils.timezone import now
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import timedelta, datetime
+# from django.contrib.auth.get_user_model() import AUTH_
+from django.contrib.auth import get_user_model
 
 
-from django.utils.timezone import now
 # Create your models here.
 
 
@@ -17,13 +19,21 @@ class Trainer(models.Model):
         return self.full_name
 
 
+# class Client(models.Model):
+#     user = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name='client')
+#     full_name = models.CharField(max_length=32)
+
+#     def __str__(self):
+#         return self.full_name + str(self.id) + " "  # + self.user.username
+
 class Client(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='client')
     full_name = models.CharField(max_length=32)
 
     def __str__(self):
-        return self.full_name
+        return self.full_name + str(self.id) + " "  # + self.user.username
 
 
 class AppointmentDay(models.Model):

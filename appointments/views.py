@@ -22,6 +22,19 @@ class ClientiewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+    @action(detail=False, methods=['POST'])
+    def new_client(self, request):
+
+        full_name = request.data['full_name']
+        user = User.objects.get(id=request.data['user_id'])
+
+        client = Client.objects.create(user=user, full_name=full_name)
+        client.save()
+        serializer = ClientSerializer(client, many=False)
+
+        message = {'message': "Client Created", 'client': serializer.data}
+        return Response(message, status=status.HTTP_200_OK)
+
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
