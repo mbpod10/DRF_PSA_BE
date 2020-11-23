@@ -113,47 +113,60 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         return Response(message, status=status.HTTP_200_OK)
 
 
+# class AppointmentDayViewSet(viewsets.ModelViewSet):
+#     queryset = AppointmentDay.objects.all()
+#     serializer_class = AppointmentDaySerializer
+
+#     @action(detail=False, methods=['GET'])
+#     def day_list(self, request):
+
+#         days = AppointmentDay.objects.all()
+#         print(days)
+
+#         return_days = {}
+
+#         for day in days:
+#             try:
+#                 print(day)
+#                 app = Appointment.objects.filter(day=day)
+#                 return_days[day] = {
+#                     'id': app.id,
+#                     'day': str(app.day.day),
+#                     'start_time': str(app.start_time),
+#                     'end_time': str(app.end_time),
+#                     'client': app.client.full_name,
+#                     'trainer': app.trainer.full_name,
+#                     'time': app.time
+#                 }
+#             except:
+#                 return_days[day] = {
+#                     'id': day.id,
+#                     'day': '',
+#                     'start_time': '',
+#                     'end_time': '',
+#                     'client': '',
+#                     'trainer': '',
+#                     'time': ''
+#                 }
+
+#         print("return days", return_days)
+
+#         # serializer = AppointmentDaySerializer(return_days, many=True)
+#         # serializer = DayListSerializer(return_days, many=True)
+
+#         # message = {'msg': serializer.data}
+#         message = {'msg': 'day_list'}
+#         return Response(message, status=status.HTTP_200_OK)
+
 class AppointmentDayViewSet(viewsets.ModelViewSet):
     queryset = AppointmentDay.objects.all()
     serializer_class = AppointmentDaySerializer
 
-    @action(detail=False, methods=['GET'])
-    def day_list(self, request):
+    @action(detail=True)
+    def appointments(self, request, pk='day'):
 
-        days = AppointmentDay.objects.all()
-        print(days)
+        day = AppointmentDay.objects.get(day=pk)
+        serializer = AppointmentDaySerializer(day, many=False)
 
-        return_days = {}
-
-        for day in days:
-            try:
-                print(day)
-                app = Appointment.objects.filter(day=day)
-                return_days[day] = {
-                    'id': app.id,
-                    'day': str(app.day.day),
-                    'start_time': str(app.start_time),
-                    'end_time': str(app.end_time),
-                    'client': app.client.full_name,
-                    'trainer': app.trainer.full_name,
-                    'time': app.time
-                }
-            except:
-                return_days[day] = {
-                    'id': day.id,
-                    'day': '',
-                    'start_time': '',
-                    'end_time': '',
-                    'client': '',
-                    'trainer': '',
-                    'time': ''
-                }
-
-        print("return days", return_days)
-
-        # serializer = AppointmentDaySerializer(return_days, many=True)
-        # serializer = DayListSerializer(return_days, many=True)
-
-        # message = {'msg': serializer.data}
-        message = {'msg': 'day_list'}
+        message = {'message': 'found', 'day': serializer.data}
         return Response(message, status=status.HTTP_200_OK)
