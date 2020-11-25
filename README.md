@@ -2,18 +2,18 @@
 
 ### Endpoints
 
-| Endpoint                                            | Description               | Body                                                  |
-| --------------------------------------------------- | ------------------------- | ----------------------------------------------------- |
-| http://127.0.0.1:8000/api/users/                    | -                         | CRUD                                                  |
-| http://127.0.0.1:8000/api/users/login/              | Login w/ token            | username, password                                    |
-| http://127.0.0.1:8000/api/users/register/           | Create New User w/ Token  | username, password                                    |
-| http://127.0.0.1:8000/api/users/change_password/    | Change existing password  | username, password                                    |
-| http://127.0.0.1:8000/appointments/                 | -                         | CRUD                                                  |
-| http://127.0.0.1:8000/appointments/book_app/        | Schedule New Appt         | day, start_time, end_time, trainer, client, time=null |
-| http://127.0.0.1:8000/trainers/                     | -                         | CRUD                                                  |
-| http://127.0.0.1:8000/clients/                      | -                         | CRUD                                                  |
-| http://127.0.0.1:8000/days/                         | -                         | CRUD                                                  |
-| http://127.0.0.1:8000/days/YYYY-MM-DD/appointments/ | detail view of YYYY-MM-DD | GET                                                   |
+| Endpoint                                               | Description               | Body                                                  |
+| ------------------------------------------------------ | ------------------------- | ----------------------------------------------------- |
+| http://127.0.0.1:8000/api/users/                       | -                         | CRUD                                                  |
+| http://127.0.0.1:8000/api/users/login/                 | Login w/ token            | username, password                                    |
+| http://127.0.0.1:8000/api/users/register/              | Create New User w/ Token  | username, password                                    |
+| http://127.0.0.1:8000/api/users/change_password/       | Change existing password  | username, password                                    |
+| http://127.0.0.1:8000/appointments/                    | -                         | CRUD                                                  |
+| http://127.0.0.1:8000/appointments/book_app/           | Schedule New Appt         | day, start_time, end_time, trainer, client, time=null |
+| http://127.0.0.1:8000/trainers/                        | -                         | CRUD                                                  |
+| http://127.0.0.1:8000/clients/                         | -                         | CRUD                                                  |
+| http://127.0.0.1:8000/days/                            | -                         | CRUD                                                  |
+| http://127.0.0.1:8000/days/${YYYY-MM-DD}/appointments/ | detail view of YYYY-MM-DD | GET                                                   |
 
 ### Book Appointment
 
@@ -104,4 +104,56 @@ Go to http://127.0.0.1:8000/days/ which is our designated view for this model an
         ]
     }
 ]
+```
+
+## Custom URL That Utilizes Day/Date That Returns Appointments For That Day
+
+- In `appointments/views.py` add the following code for the `AppointmentDayViewSet`
+
+```py
+class AppointmentDayViewSet(viewsets.ModelViewSet):
+    queryset = AppointmentDay.objects.all()
+    serializer_class = AppointmentDaySerializer
+
+    @action(detail=True, methods=['GET'])
+    def appointments(self, request, pk='day'):
+
+        day = AppointmentDay.objects.get(day=pk)
+        serializer = AppointmentDaySerializer(day, many=False)
+
+        message = {'day': serializer.data}
+        return Response(message, status=status.HTTP_200_OK)
+```
+
+Uses {prefix}/{lookup}/[function name]
+
+Example: http://127.0.0.1:8000/days/2020-11-18/appointments/
+
+Response:
+```json
+{
+    "day": {
+        "id": 26,
+        "day": "2020-11-18",
+        "no_of_appointments": 2,
+        "appointments": [
+            {
+                "id": 57,
+                "start_time": "06:00:00",
+                "end_time": "09:00:00",
+                "client": " Stephanie Bask",
+                "trainer": "Brock Podgurski",
+                "time": 180
+            },
+            {
+                "id": 58,
+                "start_time": "11:51:10",
+                "end_time": "21:51:11",
+                "client": " Stephanie Bask",
+                "trainer": "Brock Podgurski",
+                "time": 600
+            }
+        ]
+    }
+}
 ```
